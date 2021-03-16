@@ -34,7 +34,8 @@ const UsuarioSchema = Schema({
 // La función de flecha mantiene el this fuera de la función
 // y para evitar eso declaramos el método con function
 UsuarioSchema.methods.toJSON = function () {
-    const { __v, password, ...usuario } = this.toObject();
+    const { __v, password, _id, ...usuario } = this.toObject();
+    usuario.uid = _id;
     return usuario;
 }
 module.exports = model('Usuario', UsuarioSchema);
