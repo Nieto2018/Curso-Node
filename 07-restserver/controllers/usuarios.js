@@ -50,7 +50,9 @@ const usuariosPut = async (req, res = response) => {
         resto.password = bcryptjs.hashSync(password, salt);
     }
 
-    const usuario = await Usuario.findByIdAndUpdate(id, resto);
+    // El parámetro {new: true} vale para que devuelva el objeto actualizado,
+    // sin dicho parámetro se envía el objeto sin los datos actualizados
+    const usuario = await Usuario.findByIdAndUpdate(id, resto, {new: true});
 
     res.json({
         ok: true,
@@ -64,7 +66,7 @@ const usuariosDelete = async (req, res = response) => {
     // Lo borramos fisicamente
     // const usuario = await Usuario.findByIdAndRemove(id);
 
-    const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
+    const usuario = await Usuario.findByIdAndUpdate(id, { estado: false }, {new: true});
 
     res.json({
         ok: true,
