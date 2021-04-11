@@ -1,7 +1,7 @@
 
 const url = (window.location.hostname.includes('localhost'))
     ? 'http://localhost:8090/api/auth/'
-    : 'https://curso-node-restserver-nieto.herokuapp.com/api/auth/';
+    : 'https://curso-node-rest-socket-nieto.herokuapp.com/api/auth/';
 
 let usuario = null;
 let socket = null;
