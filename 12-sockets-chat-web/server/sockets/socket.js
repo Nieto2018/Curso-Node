@@ -56,6 +56,12 @@ io.on('connection', (client) => {
     });
 
     // Mensajes privados
+    client.on('crearChatPrivadoServidor', (data, callback) => {
+        let persona = usuarios.getPersona(client.id);
+        client.broadcast.to(data.para).emit('crearChatPrivadoCliente', data.para, crearMensaje(persona.nombre, data.mensaje));
+        callback();
+    });
+
     client.on('mensajePrivado', data => {
         let persona = usuarios.getPersona(client.id);
         client.broadcast.to(data.para).emit('mensajePrivado', crearMensaje(persona.nombre, data.mensaje));

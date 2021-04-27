@@ -59,6 +59,14 @@ socket.on('filtrarPersonas', function (personas) {
 });
 
 // Mensajes privados
+socket.on('crearChatPrivadoCliente', function (sala_privada, mensaje) {
+    newWindow = window.open('chat.html?nombre=' + nombre + '&sala=' + sala_privada, 'chat_privado', 'height=960px,width=940px');
+    renderizarMensajes(mensaje, false);
+    scrollBottom();
+});
+
 socket.on('mensajePrivado', function (mensaje) {
     // console.log('Mensaje Privado:', mensaje);
+    renderizarMensajes(mensaje, false);
+    scrollBottom();
 });

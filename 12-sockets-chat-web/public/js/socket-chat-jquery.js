@@ -17,7 +17,7 @@ function renderizarUsuarios(personas) {
 
     var html = '';
     html += '<li>';
-    html += '    <a href="javascript:void(0)" class="active"> Chat de <span> ' + params.get('sala') + '</span></a>';
+    html += '    <a href="javascript:void(0)" class="active"> Chat de <span> ' + sala + '</span></a>';
     html += '</li>';
 
     for (var i = 0; i < personas.length; i++) {
@@ -83,7 +83,7 @@ function renderizarMensajes(mensaje, yo) {
             html += '    <div class="chat-img"><img src="assets/images/users/2.jpg" alt="user" />';
         }
 
-        html += '    </div>';
+        html += '</div>';
         html += '    <div class="chat-content">';
         html += '        <h5>' + mensaje.nombre + '</h5>';
         html += '        <div class="box bg-light-' + adminClass + '">' + mensaje.mensaje + '</div>';
@@ -119,7 +119,9 @@ divUsuarios.on('click', 'a', function () {
     var id = $(this).data('id');
 
     if (id) {
-        console.log(id);
+        socket.emit('crearChatPrivadoServidor', {para: id}, function () {
+            newWindow = window.open('chat.html?nombre=' + nombre + '&sala=' + id, 'chat_privado', 'height=960px,width=940px');
+        });
     }
 });
 
