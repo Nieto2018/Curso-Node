@@ -27,6 +27,11 @@ class Usuarios {
         return personasEnSala;
     }
 
+    getPersonasPorNombreContiene(cadenaFiltroNombre) {
+        let personasFiltradas = this.personas.filter(p => p.nombre.toLowerCase().includes(cadenaFiltroNombre.toLowerCase()));
+        return personasFiltradas;
+    }
+
     borrarPersona(id) {
         let personaBorrada = this.getPersona(id);
         this.personas = this.personas.filter(p => p.id != id);

@@ -49,13 +49,16 @@ socket.on('crearMensaje', function (mensaje) {
 // Escuchar cambios de usuarios
 // cuando un usuario entra o sale del chat
 socket.on('listaPersona', function (personas) {
-    console.log(personas);
+    // console.log(personas);
+    renderizarUsuarios(personas);
+});
+
+socket.on('filtrarPersonas', function (personas) {
+    // console.log(personas);
     renderizarUsuarios(personas);
 });
 
 // Mensajes privados
 socket.on('mensajePrivado', function (mensaje) {
-
-    console.log('Mensaje Privado:', mensaje);
-
+    // console.log('Mensaje Privado:', mensaje);
 });

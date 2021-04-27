@@ -53,26 +53,23 @@ io.on('connection', (client) => {
 
         client.broadcast.emit('enviarMensaje', data);
 
-
-        // if (mensaje.usuario) {
-        //     callback({
-        //         resp: 'TODO SALIO BIEN!'
-        //     });
-
-        // } else {
-        //     callback({
-        //         resp: 'TODO SALIO MAL!!!!!!!!'
-        //     });
-        // }
-
-
-
     });
 
     // Mensajes privados
     client.on('mensajePrivado', data => {
         let persona = usuarios.getPersona(client.id);
         client.broadcast.to(data.para).emit('mensajePrivado', crearMensaje(persona.nombre, data.mensaje));
+    });
+
+    // Filtra usuarios que contiene cadena en el nombre
+    client.on('filtrarUsuarios', (sala, cadenaFiltroNombre, callback) => {
+        let personas;
+        if (cadenaFiltroNombre.trim().length === 0) {
+            personas = usuarios.getPersonasPorSala(sala);
+        } else {
+            personas = usuarios.getPersonasPorNombreContiene(cadenaFiltroNombre);
+        }
+        callback(personas);
     });
 
 });

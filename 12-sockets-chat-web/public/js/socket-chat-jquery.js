@@ -8,11 +8,12 @@ var divUsuarios = $('#divUsuarios');
 var formEnviar = $('#formEnviar');
 var txtMensaje = $('#txtMensaje');
 var divChatbox = $('#divChatbox');
+var txtFiltroUsuarios = $('#txtFiltroUsuarios');
 
 // Funciones para renderizar usuarios
 function renderizarUsuarios(personas) {
 
-    console.log(personas);
+    // console.log(personas);
 
     var html = '';
     html += '<li>';
@@ -136,6 +137,14 @@ formEnviar.on('submit', function (event) {
         txtMensaje.val('').focus();
         renderizarMensajes(mensaje, true);
         scrollBottom();
+    });
+
+});
+
+txtFiltroUsuarios.on('keyup', function () {
+
+    socket.emit('filtrarUsuarios', sala, txtFiltroUsuarios.val(), function (personas) {
+        renderizarUsuarios(personas);
     });
 
 });
